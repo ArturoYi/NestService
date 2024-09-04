@@ -5,7 +5,7 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 
 const globalsConfig = {
   ...globals.node,
-  ...globals.jest
+  ...globals.jest,
 }
 
 const rules = {
@@ -21,13 +21,13 @@ const rules = {
   '@typescript-eslint/no-var-requires': 'off',
   '@typescript-eslint/no-unused-expressions': 'off',
   '@typescript-eslint/no-non-null-assertion': 'off',
-  '@typescript-eslint/no-empty-function': 'off'
+  '@typescript-eslint/no-empty-function': 'off',
 }
 
 export default [
-  { languageOptions: { globals: globalsConfig } },
+  { languageOptions: { globals: globalsConfig }, ignores: ['dist/*', 'node_modules/*'] },
   pluginJs.configs.recommended,
   ...tsEslint.configs.recommended,
   eslintPluginPrettierRecommended,
-  { rules }
+  { rules },
 ]
