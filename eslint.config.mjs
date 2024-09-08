@@ -25,7 +25,10 @@ const rules = {
 }
 
 export default [
-  { languageOptions: { globals: globalsConfig }, ignores: ['dist/*', 'node_modules/*'] },
+  {
+    languageOptions: { globals: globalsConfig },
+    ignores: ['**/node_modules', '**/dist', '**/output'],
+  },
   pluginJs.configs.recommended,
   ...tsEslint.configs.recommended,
   eslintPluginPrettierRecommended,

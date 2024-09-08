@@ -1,8 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.fastifyApp = void 0;
 const platform_fastify_1 = require("@nestjs/platform-fastify");
-const multipart_1 = require("@fastify/multipart");
+const multipart_1 = __importDefault(require("@fastify/multipart"));
 const app = new platform_fastify_1.FastifyAdapter({
     trustProxy: true,
     logger: false,
