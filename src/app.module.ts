@@ -22,6 +22,21 @@ import { APP_GUARD } from '@nestjs/core'
         throttlers: [{ ttl: seconds(10), limit: 7 }],
       }),
     }),
+    // 启用 CLS 上下文：https://github.com/Papooch/nestjs-cls/issues
+    // ClsModule.forRoot({
+    //   global: true,
+    //   // https://github.com/Papooch/nestjs-cls/issues/92
+    //   interceptor: {
+    //     mount: true,
+    //     setup: (cls, context) => {
+    //       const req = context.switchToHttp().getRequest<FastifyRequest<{ Params: { id?: string } }>>()
+    //       if (req.params?.id && req.body) {
+    //         // 供自定义参数验证器(UniqueConstraint)使用
+    //         cls.set('operateId', Number.parseInt(req.params.id))
+    //       }
+    //     },
+    //   },
+    // }),
   ],
   controllers: [AppController],
   providers: [

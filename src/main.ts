@@ -10,12 +10,14 @@ import { useContainer } from 'class-validator'
 import { NestFastifyApplication } from '@nestjs/platform-fastify'
 import { ConfigService } from '@nestjs/config'
 import { HttpStatus, UnprocessableEntityException, ValidationPipe } from '@nestjs/common'
+import { setupSwagger } from './setup-swagger'
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, fastifyApp, {
     bufferLogs: true,
     snapshot: true,
     // forceCloseConnections: true,
   })
+  //获取环境变量值
   const configService = app.get(ConfigService<ConfigKeyPaths>)
   const { port, globalPrefix } = configService.get('app', { infer: true })
   /// 跨域
@@ -31,9 +33,6 @@ async function bootstrap() {
     new ValidationPipe({
       transform: true,
       whitelist: true,
-      //是否禁止未在白名单中的属性出现在请求数据
-      forbidNonWhitelisted: true,
-      forbidUnknownValues: true,
       transformOptions: { enableImplicitConversion: true },
       stopAtFirstError: true,
       errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
@@ -47,7 +46,12 @@ async function bootstrap() {
         ),
     }),
   )
+  //开始监听关机挂钩
+  if (!isDev) app.enableShutdownHooks()
+  //开发环境下开启控制台打印日志，生产环境不使用这个日志
   if (isDev) app.useGlobalInterceptors(new LoggingInterceptor())
+  //启动文档
+  setupSwagger(app, configService)
   await app.listen(port, '0.0.0.0')
 }
 bootstrap()
