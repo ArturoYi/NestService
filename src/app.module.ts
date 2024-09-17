@@ -5,6 +5,8 @@ import { ConfigModule } from '@nestjs/config'
 import config from './config'
 import { seconds, ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
 import { APP_GUARD } from '@nestjs/core'
+import { ClsModule } from 'nestjs-cls'
+import type { FastifyRequest } from 'fastify'
 
 @Module({
   imports: [
@@ -23,20 +25,20 @@ import { APP_GUARD } from '@nestjs/core'
       }),
     }),
     // 启用 CLS 上下文：https://github.com/Papooch/nestjs-cls/issues
-    // ClsModule.forRoot({
-    //   global: true,
-    //   // https://github.com/Papooch/nestjs-cls/issues/92
-    //   interceptor: {
-    //     mount: true,
-    //     setup: (cls, context) => {
-    //       const req = context.switchToHttp().getRequest<FastifyRequest<{ Params: { id?: string } }>>()
-    //       if (req.params?.id && req.body) {
-    //         // 供自定义参数验证器(UniqueConstraint)使用
-    //         cls.set('operateId', Number.parseInt(req.params.id))
-    //       }
-    //     },
-    //   },
-    // }),
+    ClsModule.forRoot({
+      global: true,
+      // https://github.com/Papooch/nestjs-cls/issues/92
+      interceptor: {
+        mount: true,
+        setup: (cls, context) => {
+          const req = context.switchToHttp().getRequest<FastifyRequest<{ Params: { id?: string } }>>()
+          if (req.params?.id && req.body) {
+            // 供自定义参数验证器(UniqueConstraint)使用
+            cls.set('operateId', Number.parseInt(req.params.id))
+          }
+        },
+      },
+    }),
   ],
   controllers: [AppController],
   providers: [

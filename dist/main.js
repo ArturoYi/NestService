@@ -13,6 +13,7 @@ const class_validator_1 = require("class-validator");
 const config_1 = require("@nestjs/config");
 const common_1 = require("@nestjs/common");
 const setup_swagger_1 = require("./setup-swagger");
+const socket_adapter_1 = require("./common/adapters/socket.adapter");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, fastify_adapter_1.fastifyApp, {
         bufferLogs: true,
@@ -36,6 +37,7 @@ async function bootstrap() {
             return msg;
         })[0]),
     }));
+    app.useWebSocketAdapter(new socket_adapter_1.RedisIoAdapter(app));
     if (!env_1.isDev)
         app.enableShutdownHooks();
     if (env_1.isDev)

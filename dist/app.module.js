@@ -17,6 +17,7 @@ const config_1 = require("@nestjs/config");
 const config_2 = __importDefault(require("./config"));
 const throttler_1 = require("@nestjs/throttler");
 const core_1 = require("@nestjs/core");
+const nestjs_cls_1 = require("nestjs-cls");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -34,6 +35,18 @@ exports.AppModule = AppModule = __decorate([
                     errorMessage: '当前操作过于频繁，请稍后再试！',
                     throttlers: [{ ttl: (0, throttler_1.seconds)(10), limit: 7 }],
                 }),
+            }),
+            nestjs_cls_1.ClsModule.forRoot({
+                global: true,
+                interceptor: {
+                    mount: true,
+                    setup: (cls, context) => {
+                        const req = context.switchToHttp().getRequest();
+                        if (req.params?.id && req.body) {
+                            cls.set('operateId', Number.parseInt(req.params.id));
+                        }
+                    },
+                },
             }),
         ],
         controllers: [app_controller_1.AppController],

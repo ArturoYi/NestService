@@ -11,6 +11,7 @@ import { NestFastifyApplication } from '@nestjs/platform-fastify'
 import { ConfigService } from '@nestjs/config'
 import { HttpStatus, UnprocessableEntityException, ValidationPipe } from '@nestjs/common'
 import { setupSwagger } from './setup-swagger'
+import { RedisIoAdapter } from './common/adapters/socket.adapter'
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, fastifyApp, {
     bufferLogs: true,
@@ -46,6 +47,8 @@ async function bootstrap() {
         ),
     }),
   )
+  // 启用socket.io
+  app.useWebSocketAdapter(new RedisIoAdapter(app))
   //开始监听关机挂钩
   if (!isDev) app.enableShutdownHooks()
   //开发环境下开启控制台打印日志，生产环境不使用这个日志
