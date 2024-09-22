@@ -7,6 +7,7 @@ import { seconds, ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
 import { APP_GUARD } from '@nestjs/core'
 import { ClsModule } from 'nestjs-cls'
 import type { FastifyRequest } from 'fastify'
+import { SharedModule } from './shared/shared.module'
 
 @Module({
   imports: [
@@ -39,6 +40,8 @@ import type { FastifyRequest } from 'fastify'
         },
       },
     }),
+    // 公共module
+    SharedModule,
   ],
   controllers: [AppController],
   providers: [

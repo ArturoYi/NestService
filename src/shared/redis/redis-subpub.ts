@@ -24,6 +24,12 @@ export class RedisSubPub {
     const subClient = pubClient.duplicate()
     this.pubClient = pubClient
     this.subClient = subClient
+    this.pubClient.on('connect', () => {
+      console.log('发布客户端连接成功到 Redis')
+    })
+    this.subClient.on('connect', () => {
+      console.log('订阅客户端连接成功到 Redis')
+    })
   }
   public async publish(event: string, data: any) {
     const channel = this.channelPrefix + event
