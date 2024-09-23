@@ -19,6 +19,7 @@ const throttler_1 = require("@nestjs/throttler");
 const core_1 = require("@nestjs/core");
 const nestjs_cls_1 = require("nestjs-cls");
 const shared_module_1 = require("./shared/shared.module");
+const database_module_1 = require("./shared/datebase/database.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -50,6 +51,7 @@ exports.AppModule = AppModule = __decorate([
                 },
             }),
             shared_module_1.SharedModule,
+            database_module_1.DatabaseModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [

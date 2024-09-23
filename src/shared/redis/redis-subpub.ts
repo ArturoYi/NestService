@@ -8,6 +8,7 @@ export class RedisSubPub {
   constructor(
     private redisConfig: RedisOptions,
     private channelPrefix: string = 'm-shop-channel#',
+    private logger: Logger = new Logger(RedisSubPub.name),
   ) {
     this.init()
   }
@@ -25,10 +26,10 @@ export class RedisSubPub {
     this.pubClient = pubClient
     this.subClient = subClient
     this.pubClient.on('connect', () => {
-      console.log('发布客户端连接成功到 Redis')
+      this.logger.log('发布客户端连接成功到 Redis')
     })
     this.subClient.on('connect', () => {
-      console.log('订阅客户端连接成功到 Redis')
+      this.logger.log('订阅客户端连接成功到 Redis')
     })
   }
   public async publish(event: string, data: any) {

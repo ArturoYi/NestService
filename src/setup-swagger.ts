@@ -1,7 +1,6 @@
 import { INestApplication, Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { ConfigKeyPaths, IAppConfig } from './config'
-import { ISwaggerConfig } from './config/swagger.config'
+import { ConfigKeyPaths, IAppConfig, ISwaggerConfig } from './config'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { API_SECURITY_AUTH } from './common/decorators/swagger.decorators'
 

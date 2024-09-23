@@ -8,6 +8,7 @@ import { APP_GUARD } from '@nestjs/core'
 import { ClsModule } from 'nestjs-cls'
 import type { FastifyRequest } from 'fastify'
 import { SharedModule } from './shared/shared.module'
+import { DatabaseModule } from './shared/datebase/database.module'
 
 @Module({
   imports: [
@@ -42,6 +43,8 @@ import { SharedModule } from './shared/shared.module'
     }),
     // 公共module
     SharedModule,
+    //database
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [
