@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'node:path'
 import cluster from 'node:cluster'
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'

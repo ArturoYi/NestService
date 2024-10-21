@@ -1,9 +1,10 @@
 import { Global, Module } from '@nestjs/common'
 import { LoggerModule } from './logger/logger.module'
 import { ThrottlerModule } from '@nestjs/throttler'
-import { isDev } from '@project/global/env'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import { RedisModule } from './redis/redis.module'
+import { MailerModule } from './mailer/mailer.module'
+import { isDev } from '../global/env'
 
 @Global()
 @Module({
@@ -29,8 +30,9 @@ import { RedisModule } from './redis/redis.module'
     }),
     // redis
     RedisModule,
+    // mailer
+    MailerModule,
   ],
-  providers: [],
-  exports: [RedisModule],
+  exports: [MailerModule, RedisModule],
 })
 export class SharedModule {}

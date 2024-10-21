@@ -4,11 +4,13 @@ import { AppService } from './app.service'
 import { ConfigModule } from '@nestjs/config'
 import config from './config'
 import { seconds, ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
-import { APP_GUARD } from '@nestjs/core'
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
 import { ClsModule } from 'nestjs-cls'
 import type { FastifyRequest } from 'fastify'
 import { SharedModule } from './shared/shared.module'
 import { DatabaseModule } from './shared/datebase/database.module'
+import { AuthModule } from './modules/auth/auth.module'
+import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor'
 
 @Module({
   imports: [
@@ -45,10 +47,13 @@ import { DatabaseModule } from './shared/datebase/database.module'
     SharedModule,
     //database
     DatabaseModule,
+    //
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
+    { provide: APP_INTERCEPTOR, useFactory: () => new TimeoutInterceptor(15 * 1000) },
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,

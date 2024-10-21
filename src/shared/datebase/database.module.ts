@@ -1,12 +1,12 @@
 import { Logger, Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { ConfigKeyPaths, IDatabaseConfig } from '@project/config'
-import { env } from '@project/global/env'
 import { DataSource, LoggerOptions } from 'typeorm'
 import { TypeORMLogger } from './typeorm-logger'
 import { EntityExistConstraint } from './constraints/entity-exist.constraint'
 import { UniqueConstraint } from './constraints/unique.constraint'
+import { ConfigKeyPaths, IDatabaseConfig } from '@project/src/config'
+import { env } from '@project/src/global/env'
 
 const providers = [EntityExistConstraint, UniqueConstraint]
 const logger = new Logger('DatabaseModule')

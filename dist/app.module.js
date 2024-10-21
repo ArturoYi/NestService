@@ -20,6 +20,8 @@ const core_1 = require("@nestjs/core");
 const nestjs_cls_1 = require("nestjs-cls");
 const shared_module_1 = require("./shared/shared.module");
 const database_module_1 = require("./shared/datebase/database.module");
+const auth_module_1 = require("./modules/auth/auth.module");
+const timeout_interceptor_1 = require("./common/interceptors/timeout.interceptor");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -52,10 +54,12 @@ exports.AppModule = AppModule = __decorate([
             }),
             shared_module_1.SharedModule,
             database_module_1.DatabaseModule,
+            auth_module_1.AuthModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [
             app_service_1.AppService,
+            { provide: core_1.APP_INTERCEPTOR, useFactory: () => new timeout_interceptor_1.TimeoutInterceptor(15 * 1000) },
             {
                 provide: core_1.APP_GUARD,
                 useClass: throttler_1.ThrottlerGuard,
