@@ -13,7 +13,7 @@ const dataSourceOptions: DataSourceOptions = {
   port: envNumber('DB_PORT', 3306),
   username: env('DB_USERNAME', 'root'),
   password: env('DB_PASSWORD', ''),
-  database: env('DB_DATABASE', 'nest_demo'),
+  database: env('DB_DATABASE', 'nest_service'),
   synchronize: envBoolean('DB_SYNCHRONIZE', false),
   // 解决通过 pnpm migration:run 初始化数据时，遇到的 SET FOREIGN_KEY_CHECKS = 0; 等语句报错问题, 仅在执行数据迁移操作时设为 true
   multipleStatements: currentScript === 'typeorm',
