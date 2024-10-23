@@ -5,4 +5,5 @@ export enum ErrorEnum {
   MAXIMUM_FIVE_VERIFICATION_CODES_PER_DAY = '1202:一天最多发送5条验证码',
   INVALID_VERIFICATION_CODE = '1002:验证码填写有误',
   VERIFICATION_CODE_SEND_FAILED = '1203:验证码发送失败',
+  SYSTEM_USER_EXISTS = '1001:系统用户已存在',
 }
