@@ -27,6 +27,17 @@ export class UserService {
     await this.entityManager.transaction(async (manager) => {
       const salt = randomValue(32)
       const password = md5(`${data.password ?? 'a123456'}${salt}`)
+
+      const u = manager.create(UserEntity, {
+        username,
+        password,
+        status: 1,
+        psalt: salt,
+        type: '1',
+      })
+
+      const user = await manager.save(u)
+      return user
     })
   }
 }

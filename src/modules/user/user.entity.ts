@@ -37,7 +37,7 @@ export class UserEntity extends CommonEntity {
   @Column({ type: 'tinyint', nullable: true, default: 1 })
   status: number
 
-  @Column({ nullable: false })
+  @Column({ nullable: true, default: '1' })
   type: string
 
   @OneToMany(() => AccessTokenEntity, (accessToken) => accessToken.user, {
