@@ -1,10 +1,15 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common'
+import { Body, Controller, Post, UseGuards, Headers } from '@nestjs/common'
 import { Public } from './decorators/public.decorator'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 import { LocalGuard } from './guards/local.guard'
 import { AuthService } from './auth.service'
 import { UserService } from '../user/user.service'
-import { RegisterDto } from './dto/auth.dto'
+import { LoginDto, RegisterDto } from './dto/auth.dto'
+import { CaptchaService } from './services/captcha.service'
+import { ApiResult } from '@project/src/common/decorators/api-result.decorator'
+import { AllowAnon } from './decorators/allow-anon.decorator'
+import { Ip } from '@project/src/common/decorators/http.decorator'
+import { LoginToken } from './models/auth.model'
 
 @ApiTags('Auth - 认证模块')
 @UseGuards(LocalGuard)
@@ -14,7 +19,16 @@ export class AuthController {
   constructor(
     private authService: AuthService,
     private userService: UserService,
+    private captchaService: CaptchaService,
   ) {}
+
+  @Post('login')
+  @ApiOperation({ summary: '登录' })
+  @ApiResult({ type: [String] })
+  @AllowAnon()
+  async login(@Body() body: LoginDto, @Ip() ip: string, @Headers('user-agent') ua: string): Promise<LoginToken> {
+    return { token: '' }
+  }
 
   @Post('register')
   @ApiOperation({ summary: '注册' })
