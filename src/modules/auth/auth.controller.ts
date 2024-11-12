@@ -27,7 +27,9 @@ export class AuthController {
   @ApiResult({ type: [String] })
   @AllowAnon()
   async login(@Body() body: LoginDto, @Ip() ip: string, @Headers('user-agent') ua: string): Promise<LoginToken> {
-    return { token: '' }
+    await this.captchaService.checkImgCaptcha(body.captchaId, body.verifyCode)
+    const token = await this.authService.login(body.username, body.password, ip, ua)
+    return { token: token }
   }
 
   @Post('register')
