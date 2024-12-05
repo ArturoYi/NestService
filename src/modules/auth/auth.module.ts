@@ -1,18 +1,19 @@
 import { Module } from '@nestjs/common'
 import { EmailController } from './controllers/email.controller'
-import { UserModule } from '../user/user.module'
 import { AuthController } from './auth.controller'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { AccessTokenEntity } from './entities/access-token.entity'
-import { RefreshTokenEntity } from './entities/refresh-token.entity'
 import { AuthService } from './auth.service'
+import { PassportModule } from '@nestjs/passport'
+import { CaptchaService } from './services/captcha.service'
+import { UserModule } from '../user/user.module'
+import { RedisModule } from '@project/src/shared/redis/redis.module'
 
 const controllers = [EmailController, AuthController]
-const providers = [AuthService]
+const providers = [AuthService, CaptchaService]
 @Module({
-  imports: [TypeOrmModule.forFeature([AccessTokenEntity, RefreshTokenEntity]), UserModule],
+  imports: [PassportModule, UserModule],
   controllers: [...controllers],
   providers: [...providers],
-  exports: [TypeOrmModule],
+  exports: [...providers],
 })
 export class AuthModule {}

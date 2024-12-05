@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common'
 import { SseService } from './sse.service'
 import { SseController } from './sse.controller'
-import { OnlineModule } from '../system/online/online.module'
 
 @Module({
-  imports: [OnlineModule],
+  imports: [],
   controllers: [SseController],
   providers: [SseService],
   exports: [SseService],

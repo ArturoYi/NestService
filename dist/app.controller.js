@@ -14,6 +14,7 @@ const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const app_service_1 = require("./app.service");
 let AppController = class AppController {
+    appService;
     constructor(appService) {
         this.appService = appService;
     }

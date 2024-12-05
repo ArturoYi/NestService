@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Subscriber } from 'rxjs'
-import { UserEntity } from '../user/user.entity'
 import { In } from 'typeorm'
-import { RoleEntity } from '../system/role/role.entity'
 import { ROOT_ROLE_ID } from '@project/src/common/constants/system.constant'
 
 export interface MessageEvent {
@@ -68,31 +66,31 @@ export class SseService {
    * 通过menuIds通知用户更新权限菜单
    */
   async noticeClientToUpdateMenusByMenuIds(menuIds: number[]): Promise<void> {
-    const roleMenus = await RoleEntity.find({
-      where: {
-        menus: {
-          id: In(menuIds),
-        },
-      },
-    })
-    const roleIds = roleMenus.map((n) => n.id).concat(ROOT_ROLE_ID)
-    await this.noticeClientToUpdateMenusByRoleIds(roleIds)
+    // const roleMenus = await RoleEntity.find({
+    //   where: {
+    //     menus: {
+    //       id: In(menuIds),
+    //     },
+    //   },
+    // })
+    // const roleIds = roleMenus.map((n) => n.id).concat(ROOT_ROLE_ID)
+    // await this.noticeClientToUpdateMenusByRoleIds(roleIds)
   }
 
   /**
    * 通过roleIds通知用户更新权限菜单
    */
   async noticeClientToUpdateMenusByRoleIds(roleIds: number[]): Promise<void> {
-    const users = await UserEntity.find({
-      where: {
-        roles: {
-          id: In(roleIds),
-        },
-      },
-    })
-    if (users) {
-      const userIds = users.map((n) => n.id)
-      await this.noticeClientToUpdateMenusByUserIds(userIds)
-    }
+    // const users = await UserEntity.find({
+    //   where: {
+    //     roles: {
+    //       id: In(roleIds),
+    //     },
+    //   },
+    // })
+    // if (users) {
+    //   const userIds = users.map((n) => n.id)
+    //   await this.noticeClientToUpdateMenusByUserIds(userIds)
+    // }
   }
 }

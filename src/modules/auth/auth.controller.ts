@@ -3,13 +3,14 @@ import { Public } from './decorators/public.decorator'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 import { LocalGuard } from './guards/local.guard'
 import { AuthService } from './auth.service'
-import { UserService } from '../user/user.service'
+// import { UserService } from '../user/user.service'
 import { LoginDto, RegisterDto } from './dto/auth.dto'
 import { CaptchaService } from './services/captcha.service'
 import { ApiResult } from '@project/src/common/decorators/api-result.decorator'
 import { AllowAnon } from './decorators/allow-anon.decorator'
 import { Ip } from '@project/src/common/decorators/http.decorator'
 import { LoginToken } from './models/auth.model'
+import { UserService } from '../user/user.service'
 
 @ApiTags('Auth - 认证模块')
 @UseGuards(LocalGuard)

@@ -11,7 +11,7 @@ import { SharedModule } from './shared/shared.module'
 import { DatabaseModule } from './shared/datebase/database.module'
 import { AuthModule } from './modules/auth/auth.module'
 import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor'
-import { SystemModule } from './modules/system/system.module'
+// import { SystemModule } from './modules/system/system.module'
 
 @Module({
   imports: [
@@ -51,7 +51,7 @@ import { SystemModule } from './modules/system/system.module'
     //
     AuthModule,
     //系统模块
-    SystemModule,
+    // SystemModule,
   ],
   controllers: [AppController],
   providers: [

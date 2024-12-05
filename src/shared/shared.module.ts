@@ -1,16 +1,22 @@
 import { Global, Module } from '@nestjs/common'
+import { ScheduleModule } from '@nestjs/schedule'
 import { LoggerModule } from './logger/logger.module'
 import { ThrottlerModule } from '@nestjs/throttler'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import { RedisModule } from './redis/redis.module'
 import { MailerModule } from './mailer/mailer.module'
 import { isDev } from '../global/env'
+import { HttpModule } from '@nestjs/axios'
 
 @Global()
 @Module({
   imports: [
     // logger
     LoggerModule.forRoot(),
+    // http
+    HttpModule,
+    // schedule
+    ScheduleModule.forRoot(),
     // rate limit
     ThrottlerModule.forRoot([
       {
@@ -33,6 +39,6 @@ import { isDev } from '../global/env'
     // mailer
     MailerModule,
   ],
-  exports: [MailerModule, RedisModule],
+  exports: [RedisModule, MailerModule],
 })
 export class SharedModule {}
