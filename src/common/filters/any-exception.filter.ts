@@ -3,7 +3,6 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { QueryFailedError } from 'typeorm'
 import { ErrorEnum } from '../constants/error-code.constants'
 import { BizException } from '../exceptions/biz.exception'
-import { IBaseResponse } from '../../../types/global'
 import { isDev } from '@project/src/global/env'
 
 interface myError {

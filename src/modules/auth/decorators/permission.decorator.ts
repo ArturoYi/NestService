@@ -31,3 +31,6 @@ export function definePermission(modulePrefix: string, actions) {
     }, {})
   }
 }
+
+/** 获取所有通过 definePermission 定义的权限 */
+export const getDefinePermissions = () => permissions
