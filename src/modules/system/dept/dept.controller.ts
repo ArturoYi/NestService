@@ -1,19 +1,18 @@
 import { Body, Controller, Delete, Get, Post, Put, Query } from '@nestjs/common'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 
-import { ApiResult } from '~/common/decorators/api-result.decorator'
-import { IdParam } from '~/common/decorators/id-param.decorator'
-import { ApiSecurityAuth } from '~/common/decorators/swagger.decorator'
-import { BusinessException } from '~/common/exceptions/biz.exception'
-import { CreatorPipe } from '~/common/pipes/creator.pipe'
-import { UpdaterPipe } from '~/common/pipes/updater.pipe'
-import { ErrorEnum } from '~/constants/error-code.constant'
-import { AuthUser } from '~/modules/auth/decorators/auth-user.decorator'
-import { definePermission, Perm } from '~/modules/auth/decorators/permission.decorator'
-import { DeptEntity } from '~/modules/system/dept/dept.entity'
-
 import { DeptDto, DeptQueryDto } from './dept.dto'
 import { DeptService } from './dept.service'
+import { ErrorEnum } from '@project/src/common/constants/error-code.constants'
+import { ApiResult } from '@project/src/common/decorators/api-result.decorator'
+import { IdParam } from '@project/src/common/decorators/id-param.decorator'
+import { ApiSecurityAuth } from '@project/src/common/decorators/swagger.decorators'
+import { BusinessException } from '@project/src/common/exceptions/biz.exception'
+import { CreatorPipe } from '@project/src/common/pipes/creator.pipe'
+import { UpdaterPipe } from '@project/src/common/pipes/updater.pipe'
+import { definePermission, Perm } from '../../auth/decorators/permission.decorator'
+import { DeptEntity } from './dept.entity'
+import { AuthUser } from '../../auth/decorators/auth-user.decorator'
 
 export const permissions = definePermission('system:dept', {
   LIST: 'list',

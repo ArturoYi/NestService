@@ -1,9 +1,8 @@
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger'
 import { Column, Entity, OneToMany, Relation, Tree, TreeChildren, TreeParent } from 'typeorm'
 
-import { CompleteEntity } from '~/common/entity/common.entity'
-
 import { UserEntity } from '../../user/user.entity'
+import { CompleteEntity } from '@project/src/common/entity/common.entity'
 
 @Entity({ name: 'sys_dept' })
 @Tree('materialized-path')

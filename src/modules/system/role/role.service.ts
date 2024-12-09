@@ -85,7 +85,7 @@ export class RoleService {
    * 更新角色信息
    * 如果传入的menuIds为空，则清空sys_role_menus表中存有的关联数据，参考新增
    */
-  async update(id, { menuIds, ...data }: RoleUpdateDto): Promise<void> {
+  async update(id: any, { menuIds, ...data }: RoleUpdateDto): Promise<void> {
     await this.roleRepository.update(id, data)
     await this.entityManager.transaction(async (manager) => {
       const role = await this.roleRepository.findOne({ where: { id } })

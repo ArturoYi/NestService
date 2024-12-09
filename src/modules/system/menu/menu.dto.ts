@@ -1,7 +1,6 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger'
+import { OperatorDto } from '@project/src/common/dto/operator.dto'
 import { IsBoolean, IsIn, IsInt, IsOptional, IsString, Min, MinLength, ValidateIf } from 'class-validator'
-
-import { OperatorDto } from '~/common/dto/operator.dto'
 
 enum MenuType {
   /** 菜单 */

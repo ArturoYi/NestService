@@ -14,6 +14,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { ConfigKeyPaths, ISecurityConfig } from '@project/src/config'
 import { isDev } from '@project/src/global/env'
 import { CaptchaController } from './controllers/captcha.controller'
+import { AccessTokenEntity } from './entities/access-token.entity'
+import { RefreshTokenEntity } from './entities/refresh-token.entity'
+import { MenuModule } from '../system/menu/menu.module'
+import { RoleModule } from '../system/role/role.module'
 
 const controllers = [CaptchaController, AuthController, EmailController]
 const providers = [AuthService, CaptchaService, TokenService]
@@ -21,6 +25,7 @@ const strategies = [JwtStrategy]
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([AccessTokenEntity, RefreshTokenEntity]),
     PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
@@ -38,9 +43,11 @@ const strategies = [JwtStrategy]
       inject: [ConfigService],
     }),
     UserModule,
+    RoleModule,
+    MenuModule,
   ],
   controllers: [...controllers],
   providers: [...providers, ...strategies],
-  exports: [JwtModule, ...providers],
+  exports: [TypeOrmModule, JwtModule, ...providers],
 })
 export class AuthModule {}

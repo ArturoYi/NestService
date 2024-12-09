@@ -3,14 +3,12 @@ import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
 import { isEmpty } from 'lodash'
 import { EntityManager, Repository, TreeRepository } from 'typeorm'
 
-import { BusinessException } from '~/common/exceptions/biz.exception'
-import { ErrorEnum } from '~/constants/error-code.constant'
-import { DeptEntity } from '~/modules/system/dept/dept.entity'
-import { UserEntity } from '~/modules/user/user.entity'
-
-import { deleteEmptyChildren } from '~/utils/list2tree.util'
-
 import { DeptDto, DeptQueryDto, MoveDept } from './dept.dto'
+import { ErrorEnum } from '@project/src/common/constants/error-code.constants'
+import { BusinessException } from '@project/src/common/exceptions/biz.exception'
+import { deleteEmptyChildren } from '@project/src/utils'
+import { UserEntity } from '../../user/user.entity'
+import { DeptEntity } from './dept.entity'
 
 @Injectable()
 export class DeptService {

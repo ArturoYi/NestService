@@ -4,20 +4,17 @@ import Redis from 'ioredis'
 import { concat, isEmpty, isNil, uniq } from 'lodash'
 import { In, IsNull, Like, Not, Repository } from 'typeorm'
 
-import { InjectRedis } from '~/common/decorators/inject-redis.decorator'
-
-import { BusinessException } from '~/common/exceptions/biz.exception'
-import { RedisKeys } from '~/constants/cache.constant'
-import { ErrorEnum } from '~/constants/error-code.constant'
-import { genAuthPermKey, genAuthTokenKey } from '~/helper/genRedisKey'
-import { SseService } from '~/modules/sse/sse.service'
-import { MenuEntity } from '~/modules/system/menu/menu.entity'
-
-import { deleteEmptyChildren, generatorMenu, generatorRouters } from '~/utils'
-
 import { RoleService } from '../role/role.service'
 
 import { MenuDto, MenuQueryDto, MenuUpdateDto } from './menu.dto'
+import { RedisKeys } from '@project/src/common/constants/cache.constant'
+import { ErrorEnum } from '@project/src/common/constants/error-code.constants'
+import { BusinessException } from '@project/src/common/exceptions/biz.exception'
+import { genAuthTokenKey, genAuthPermKey } from '@project/src/common/helper/genRedisKey'
+import { SseService } from '../../sse/sse.service'
+import { MenuEntity } from './menu.entity'
+import { InjectRedis } from '@project/src/common/decorators/inject-redis.decorator'
+import { deleteEmptyChildren, generatorMenu, generatorRouters } from '@project/src/utils'
 
 @Injectable()
 export class MenuService {
