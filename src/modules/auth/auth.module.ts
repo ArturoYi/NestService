@@ -18,6 +18,7 @@ import { AccessTokenEntity } from './entities/access-token.entity'
 import { RefreshTokenEntity } from './entities/refresh-token.entity'
 import { MenuModule } from '../system/menu/menu.module'
 import { RoleModule } from '../system/role/role.module'
+import { LogModule } from '../system/log/log.module'
 
 const controllers = [CaptchaController, AuthController, EmailController]
 const providers = [AuthService, CaptchaService, TokenService]
@@ -45,6 +46,7 @@ const strategies = [JwtStrategy]
     UserModule,
     RoleModule,
     MenuModule,
+    LogModule,
   ],
   controllers: [...controllers],
   providers: [...providers, ...strategies],
