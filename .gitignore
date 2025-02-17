@@ -1,8 +1,11 @@
 node_modules/
 .DS_Store
+logs/*.log
 log/*.log
 
 .idea/
 dist/
 
+
 开发资料.md
+.env.development

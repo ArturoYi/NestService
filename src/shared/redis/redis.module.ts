@@ -10,52 +10,62 @@ import { CacheModule } from '@nestjs/cache-manager'
 import { redisStore } from 'cache-manager-redis-yet'
 import { ConfigKeyPaths, IRedisConfig } from '@project/src/config'
 import { REDIS_CLIENT } from '@project/src/common/decorators/inject-redis.decorator'
+
 const providers: Provider[] = [
   CacheService,
   {
     provide: REDIS_PUBSUB,
     useFactory: (configService: ConfigService<ConfigKeyPaths>) => {
       const redisOptions: RedisOptions = configService.get<IRedisConfig>('redis')
-      return new RedisSubPub(redisOptions)
+      return new RedisSubPub({
+        ...redisOptions,
+      })
     },
     inject: [ConfigService],
   },
   RedisPubSubService,
-  //
   {
     provide: REDIS_CLIENT,
     useFactory: (redisService: RedisService) => {
       return redisService.getClient()
     },
-    inject: [RedisService], // 注入 RedisService
+    inject: [RedisService],
   },
 ]
 
 @Global()
 @Module({
   imports: [
-    //Cache
     CacheModule.registerAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService<ConfigKeyPaths>) => {
         const redisOptions: RedisOptions = configService.get<IRedisConfig>('redis')
-
         return {
           isGlobal: true,
           store: redisStore,
           isCacheableValue: () => true,
-          ...redisOptions,
+          host: redisOptions.host,
+          port: redisOptions.port,
+          username: redisOptions.username,
+          password: redisOptions.password,
         }
       },
       inject: [ConfigService],
     }),
-    // redis
     NestRedisModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService<ConfigKeyPaths>) => ({
-        readyLog: true,
-        config: configService.get<IRedisConfig>('redis'),
-      }),
+      useFactory: (configService: ConfigService<ConfigKeyPaths>) => {
+        const redisConfig = configService.get<IRedisConfig>('redis')
+        return {
+          readyLog: true,
+          config: {
+            host: redisConfig.host,
+            port: redisConfig.port,
+            username: redisConfig.username,
+            password: redisConfig.password,
+          },
+        }
+      },
       inject: [ConfigService],
     }),
   ],
