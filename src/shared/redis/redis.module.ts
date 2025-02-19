@@ -27,7 +27,7 @@ const providers: Provider[] = [
   {
     provide: REDIS_CLIENT,
     useFactory: (redisService: RedisService) => {
-      return redisService.getClient()
+      return redisService.getOrThrow()
     },
     inject: [RedisService],
   },

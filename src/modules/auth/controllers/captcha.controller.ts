@@ -10,6 +10,7 @@ import { Public } from '../decorators/public.decorator'
 import { ImageCaptchaDto } from '../dto/captcha.dto copy'
 import { ImageCaptcha } from '../models/auth.model'
 import { InjectRedis } from '@project/src/common/decorators/inject-redis.decorator'
+import { Throttle } from '@nestjs/throttler'
 
 @ApiTags('Captcha - 验证码模块')
 @Controller('auth/captcha')
@@ -20,7 +21,7 @@ export class CaptchaController {
   @ApiOperation({ summary: '获取登录图片验证码' })
   @ApiResult({ type: ImageCaptcha })
   @Public()
-  // @Throttle({ default: { limit: 2, ttl: 600000 } })
+  @Throttle({ default: { limit: 2, ttl: 600000 } })
   async captchaByImg(@Query() dto: ImageCaptchaDto): Promise<ImageCaptcha> {
     const { width, height } = dto
 

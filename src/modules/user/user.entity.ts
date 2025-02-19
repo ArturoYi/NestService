@@ -50,8 +50,6 @@ export class UserEntity extends CommonEntity {
   @JoinColumn({ name: 'dept_id' })
   dept: Relation<DeptEntity>
 
-  @OneToMany(() => AccessTokenEntity, (accessToken) => accessToken.user, {
-    cascade: true,
-  })
+  @OneToMany(() => AccessTokenEntity, (token) => token.user)
   accessTokens: Relation<AccessTokenEntity[]>
 }
