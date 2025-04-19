@@ -140,5 +140,6 @@
       "@nestjs/core",
       "@scarf/scarf"
     ]
-  }
+  },
+  "packageManager": "pnpm@10.2.0"
 }
